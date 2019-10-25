@@ -1,87 +1,56 @@
-import random
+# DEBUG = False
 
-DEBUG = False
-alphabet = {}
-used =     {}
+def init(DEBUG=True):
+    import random
+    alphabet = {}
+    used =     {}
 
-top = 0
-now = 0
-randArr = []
+    top = 0
+    now = 0
+    randArr = []
 
-for i in range(0, ord('z') - ord('a') + 1):
-    alphabet[chr(ord('a') + i)] = i + now
-    alphabet[i + now] = chr(ord('a') + i)
-    randArr.append(chr(ord('a') + i))
-    used[chr(ord('a') + i)] = False
+    for i in range(0, ord('z') - ord('a') + 1):
+        alphabet[chr(ord('a') + i)] = i + now
+        alphabet[i + now] = chr(ord('a') + i)
+        randArr.append(chr(ord('a') + i))
+        used[chr(ord('a') + i)] = False
+        if DEBUG == True:
+            print(chr(ord('a') + i), i + now)
+        top+= 1
     if DEBUG == True:
-        print(chr(ord('a') + i), i + now)
-    top+= 1
-if DEBUG == True:
-    print("\n\n")
-now = top
+        print("\n\n")
+    now = top
 
-# for i in range(0, ord('Z') - ord('A') + 1):
-#     alphabet[chr(ord('A') + i)] = i + now;
-#     alphabet[i + now] = chr(ord('A') + i)
-#     used[chr(ord('A') + i)] = False
-#     print(chr(ord('A') + i), i + now)
-#     top+= 1
-#
-# print("\n\n")
-# now = top
-#
-# for i in range(0, ord('я') - ord('а') + 1):
-#     alphabet[chr(ord('а') + i)] = i + now;
-#     alphabet[i + now] = chr(ord('а') + i)
-#     used[chr(ord('а') + i)] = False
-#     print(chr(ord('а') + i), i + now)
-#     top+= 1
-#
-#
-# print("\n\n")
-# now = top
-#
-# for i in range(0, ord('Я') - ord('А') + 1):
-#     alphabet[chr(ord('А') + i)] = i + now;
-#     alphabet[i + now] = chr(ord('А') + i)
-#     used[chr(ord('А') + i)] = False
-#     print(chr(ord('А') + i), i + now)
-#     top+= 1
-#
-# print("\n\n")
-# now = top
-#
-# for i in range(0, ord('9') - ord('0') + 1):
-#     alphabet[chr(ord('0') + i)] = i + now;
-#     alphabet[i + now] = chr(ord('0') + i)
-#     used[chr(ord('0') + i)] = False
-#     print(chr(ord('0') + i), i + now)
-#     top+= 1
+    ###############################################################################
 
-if DEBUG == True:
-    print(f"\n\n{randArr}")
-random.shuffle(randArr)
-if DEBUG == True:
-    print(f"\n\n{randArr}")
-
-matr = []
-for i in range(0, now):
-    matr.append([])
-    for j in range(0, now):
-            matr[i].append(randArr[(i + j) % now])
-            if DEBUG == True:
-                print(matr[i][j], ' ', end='')
     if DEBUG == True:
-        print()
+        print(f"\n\n{randArr}")
+    random.shuffle(randArr)
+    if DEBUG == True:
+        print(f"\n\n{randArr}")
 
-if DEBUG == True:
-    print(alphabet)
+    matr = []
+    for i in range(0, now):
+        matr.append([])
+        for j in range(0, now):
+                matr[i].append(randArr[(i + j) % now])
+                if DEBUG == True:
+                    print(matr[i][j], ' ', end='')
+        if DEBUG == True:
+            print()
+
+    if DEBUG == True:
+        print(alphabet)
+
+    return matr, randArr, alphabet
 # print(matr)
 
-text = input('TEXT: ')
-key = input('Password: ')
+# matr, randArr, alphabet = init(DEBUG)
+#
+# text = input('TEXT: ')
+# key = input('Password: ')
 
-def chipher(text, key):
+def chipher(text, key, matr, alphabet, DEBUG=True):
     ciphertext = ''
     top = 0 # position on key
 
@@ -96,14 +65,14 @@ def chipher(text, key):
     # print(ciphertext)
     return ciphertext
 
-print(chipher(text, key))
+# print(chipher(text, key, matr, alphabet, DEBUG))
 
-def dechipher(chiphertext, key):
+def dechipher(chiphertext, key, sz, matr, alphabet, DEBUG=True): # size of randArr or number of different symbols in dictinary
     text = ''
     top = 0
 
     def fun(symb, column):
-        for i in range(0, len(randArr)):
+        for i in range(0, sz):
             if matr[i][column] == symb:
                 return i
         return None
@@ -121,4 +90,4 @@ def dechipher(chiphertext, key):
 
     return text
 
-print(dechipher(chipher(text, key), key))
+# print(dechipher(chipher(text, key, matr, alphabet, DEBUG), key, len(randArr), matr, alphabet, DEBUG))
