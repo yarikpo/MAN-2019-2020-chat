@@ -1,11 +1,12 @@
 import vishener as vi
 
-DEBUG = True
+DEBUG = False
 
 matr, randArr, alphabet = vi.init(DEBUG)
 
 text = input('type text here: ')
 key = input('type password here: ')
+size = len(text)
 
 ciphertext = vi.chipher(text, key, matr, alphabet, DEBUG)
 
@@ -17,7 +18,7 @@ if DEBUG == True:
 
 textSize = 15
 keySize = 5
-times = 10
+times = 1
 
 def addTextKey(text, key, textSize, keySize):
     resKey = key
@@ -35,7 +36,8 @@ def addTextKey(text, key, textSize, keySize):
     return resText, resKey
 
 newText, newKey = addTextKey(text, key, textSize, keySize)
-print((newText, newKey))
+if DEBUG == True:
+    print((newText, newKey))
 
 def buildBlocks(newText, newKey, times):
     global matr, alphabet
@@ -58,6 +60,44 @@ def buildBlocks(newText, newKey, times):
         for i in range(0, len(mas)):
             cipherMas[i + 1] = vi.chipher(mas[i], cipherMas[i], matr, alphabet, False)
 
-    return mas, cipherMas
+    return cipherMas
 
-print(buildBlocks(newText, newKey, times))
+cipherMas = buildBlocks(newText, newKey, times)
+# print(buildBlocks(newText, newKey, times))
+
+print(cipherMas)
+
+def decipherBlocks(cipherMas, newKey, size, times):
+    global randArr, matr, alphabet
+
+    for _ in range(0, times - 1):
+        i = len(cipherMas)
+        while i != 0:
+            i-= 1
+            # print(i)
+            cipherMas[i] = vi.dechipher(cipherMas[i], cipherMas[i - 1], len(randArr), matr, alphabet, False)
+        cipherMas[0] = vi.dechipher(cipherMas[0], cipherMas[len(cipherMas) - 1], len(randArr), matr, alphabet, False)
+
+    i = len(cipherMas)
+    # print('last')
+    while i != 1:
+        i-= 1
+        # print(i)
+        cipherMas[i] = vi.dechipher(cipherMas[i], cipherMas[i - 1], len(randArr), matr, alphabet, False)
+    cipherMas[0] = vi.dechipher(cipherMas[0], newKey, len(randArr), matr, alphabet, False)
+
+
+    result = ""
+    top = 0
+    for i in range(1, len(cipherMas)):
+        for j in cipherMas[i]:
+            if top == size:
+                break
+            result+= j
+            top+= 1
+        if top == size:
+            break
+    return result
+
+# print("[value]")
+print(decipherBlocks(cipherMas, newKey, size, times))
