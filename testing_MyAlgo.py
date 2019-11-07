@@ -8,8 +8,8 @@ matr, randArr, alphabet = vi.init(DEBUG)
 # text = input('type text here: ')
 # key = input('type password here: ')
 
-text = 'a' * 100000
-key = 'z' * 200
+text = 'a' * 1000
+key = 'z' * 20
 
 
 start_time = time.time()
@@ -25,9 +25,9 @@ if DEBUG == True:
 
 #######################################################################################
 
-textSize = 100000
-keySize = 2000
-times = 10
+textSize = 1000
+keySize = 20
+times = 1
 
 def addTextKey(text, key, textSize, keySize):
     resKey = key
