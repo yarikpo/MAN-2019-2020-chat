@@ -1,0 +1,9 @@
+https://ru.wikipedia.org/wiki/Шифр
+
+https://ru.wikipedia.org/wiki/Симметричные_криптосистемы
+
+https://ru.wikipedia.org/wiki/Криптосистема_с_открытым_ключом
+
+https://ru.wikipedia.org/wiki/Блочный_шифр
+
+https://ru.wikipedia.org/wiki/Потоковый_шифр
