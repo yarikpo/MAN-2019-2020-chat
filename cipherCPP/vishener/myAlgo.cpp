@@ -13,7 +13,7 @@ signed main() {
         alphabet+= i;
     for (char i = 'A'; i <= 'Z'; ++i)
         alphabet+= i;
-    alphabet+= " ,\'\"!@#$%^&*()[]_`~,./";
+    alphabet+= " ,\'\"!@#$%^&*()[];:><_`~,./";
     for (char i = '0'; i <= '9'; ++i)
         alphabet+= i;
     /*for (char i = 'а'; i <= 'я'; ++i)
@@ -44,17 +44,24 @@ signed main() {
     string openText = "";
     string key = "";
     string cipherText = "";
-
+    
+    
+    
     cout << "openText: ";
     getline(cin, openText);
+    
     cout << "key: ";
     getline(cin, key);
 
+    int rds = 0;
+    cout << "rounds: ";
+    cin >> rds;
 
     int sz = openText.length();
-    cipherText = myAlgo_cipher(openText, key, matrix, position, 1);
+    cipherText = myAlgo_cipher(openText, key, matrix, position, rds);
+    
     cout << "ciphertext: " << cipherText << '\n';
-    string opt = myAlgo_decipher(cipherText, key, cipherMatr, position, 1);
+    string opt = myAlgo_decipher(cipherText, key, cipherMatr, position, rds);
     openText = "";
     for (size_t i = 0; i < sz; ++i)
         openText+= opt[i];
