@@ -1,14 +1,13 @@
 #include <bits/stdc++.h>
-#include "vish.cpp"
+// #include "vish.cpp"
+#include "myA.cpp"
 
 using namespace std;
-
-
 
 signed main() {
     string alphabet = "";
     map<char, int> position;
-    for (char i = 'a'; i <= 'z'; ++i)
+    for (char i = 1; i <= 254; ++i)
         alphabet+= i;
 
     for (size_t i = 0; i < alphabet.length(); ++i)
@@ -24,23 +23,28 @@ signed main() {
     pair<char**, char**> p = read_table("./table.vis", alphabet);
     matrix = p.first;
     cipherMatr = p.second;
-   
-
-
-
     
-    string openText = "";
-    string cipherText = "";
-    string key = "";
-    cerr << "Open text: ";
-    cin >> openText;
-    cerr << "Key: ";
-    cin >> key;
-    cipherText = cipher_vish(openText, key, matrix, position);
-    cerr << "cipher: " << cipherText << '\n';
-    openText = decipher_vish(cipherText, key, cipherMatr, position);
-    cerr << "checkOpen: " << openText << '\n';
 
+    string openText = "";
+    string key = "";
+    string cipherText = "";
+
+    cout << "openText: ";
+    cin >> openText;
+    cout << "key: ";
+    cin >> key;
+
+
+    int sz = openText.length();
+    cipherText = myAlgo_cipher(openText, key, matrix, position, 1);
+    cout << "ciphertext: " << cipherText << '\n';
+    string opt = myAlgo_decipher(cipherText, key, cipherMatr, position, 1);
+    openText = "";
+    for (size_t i = 0; i < sz; ++i)
+        openText+= opt[i];
+
+    cout << "openText: " << openText << '\n';
+    
 
 
     return 0;
