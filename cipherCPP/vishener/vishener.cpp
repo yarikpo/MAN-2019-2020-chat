@@ -10,6 +10,10 @@ signed main() {
     map<char, int> position;
     for (char i = 'a'; i <= 'z'; ++i)
         alphabet+= i;
+    for (char i = 'A'; i <= 'Z'; ++i)
+        alphabet+= i;
+    alphabet+= ' ';
+    
 
     for (size_t i = 0; i < alphabet.length(); ++i)
         position[alphabet[i]] = i;
@@ -24,7 +28,16 @@ signed main() {
     pair<char**, char**> p = read_table("./table.vis", alphabet);
     matrix = p.first;
     cipherMatr = p.second;
-   
+    
+
+    ///
+    /*for (int i = 0; i < alphabet.size(); i++) {
+        for (int j = 0; j < alphabet.size(); j++)
+            cerr << matrix[i][j];
+        cerr << '\n';
+    }
+    cerr << "\n\n";*/
+    ///
 
 
 
@@ -33,13 +46,13 @@ signed main() {
     string cipherText = "";
     string key = "";
     cerr << "Open text: ";
-    cin >> openText;
+    getline(cin, openText);
     cerr << "Key: ";
-    cin >> key;
+    getline(cin, key);
     cipherText = cipher_vish(openText, key, matrix, position);
     cerr << "cipher: " << cipherText << '\n';
-    openText = decipher_vish(cipherText, key, cipherMatr, position);
-    cerr << "checkOpen: " << openText << '\n';
+    cipherText = decipher_vish(cipherText, key, cipherMatr, position);
+    cerr << "checkOpen: " << cipherText << '\n';
 
 
 
