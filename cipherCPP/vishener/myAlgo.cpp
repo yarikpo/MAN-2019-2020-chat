@@ -13,7 +13,7 @@ signed main() {
         alphabet+= i;
     for (char i = 'A'; i <= 'Z'; ++i)
         alphabet+= i;
-    alphabet+= " ,\'\"!@#$%^&*()[];:><_`~,./";
+    alphabet+= " ,.!?";
     for (char i = '0'; i <= '9'; ++i)
         alphabet+= i;
     /*for (char i = 'а'; i <= 'я'; ++i)
