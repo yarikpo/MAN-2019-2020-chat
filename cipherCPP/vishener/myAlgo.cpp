@@ -7,6 +7,9 @@ using namespace std;
 signed main() {
     setlocale(LC_ALL, "Russian");
 
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+
     string alphabet = "";
     map<char, int> position;
     for (char i = 'a'; i <= 'z'; ++i)
