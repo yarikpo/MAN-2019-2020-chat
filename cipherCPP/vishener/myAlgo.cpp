@@ -5,10 +5,22 @@
 using namespace std;
 
 signed main() {
-    setlocale(LC_ALL, "Russian");
+    // setlocale(LC_ALL, "");
 
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
+    bool isCipher = false;
+    cout << "Type 0 to cipher information/1 to decipher: ";
+    cin >> isCipher;
+    string path = "";
+    cout << "enter path of the file: ";
+    cin >> path;
+    cout << "enter path where to write information: ";
+    string outPath = "";
+    cin >> outPath;
+
+    // freopen(path.c_str(), "r", stdin);
+    // freopen("output.txt", "w", stdout);
+    ifstream gin(path.c_str());
+    ofstream gout(outPath.c_str());
 
     string alphabet = "";
     map<char, int> position;
@@ -50,29 +62,33 @@ signed main() {
     
     
     
-    cout << "openText: ";
-    getline(cin, openText);
+    // cout << "openText: ";
+    getline(gin, openText);
     
-    cout << "key: ";
-    getline(cin, key);
+    // cout << "key: ";
+    getline(gin, key);
 
     int rds = 0;
-    cout << "rounds: ";
-    cin >> rds;
+    // cout << "rounds: ";
+    gin >> rds;
 
     int sz = openText.length();
-    cipherText = myAlgo_cipher(openText, key, matrix, position, rds);
-    
-    cout << "ciphertext: " << cipherText << '\n';
-    string opt = myAlgo_decipher(cipherText, key, cipherMatr, position, rds);
-    openText = "";
-    for (size_t i = 0; i < sz; ++i)
-        openText+= opt[i];
+    if (!isCipher) {
+        cipherText = myAlgo_cipher(openText, key, matrix, position, rds);
+        gout << cipherText << '\n';
+        cerr << cipherText << '\n';
+    } else {
+        cipherText = openText;
+        string opt = myAlgo_decipher(cipherText, key, cipherMatr, position, rds);
+        openText = "";
+        for (size_t i = 0; i < sz; ++i)
+            openText+= opt[i];
 
-    cout << "openText: " << openText << '\n';
+        gout << opt << '\n';
+        cerr << opt << '\n';
+    }
 
-
-
+    system("pause");
 
     return 0;
 }
